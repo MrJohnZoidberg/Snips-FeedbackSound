@@ -29,6 +29,6 @@ def parse_slots(msg):
 
 if __name__ == "__main__":
     mqtt_client.on_connect = on_connect
-    client.message_callback_add("hermes/intent/domi:toggleFeedbackSound", toggle_sound)
+    mqtt_client.message_callback_add("hermes/intent/domi:toggleFeedbackSound", toggle_sound)
     mqtt_client.connect("localhost", 1883)
     mqtt_client.loop_forever()
