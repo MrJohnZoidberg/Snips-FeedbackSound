@@ -13,7 +13,7 @@ def on_connect(client, userdata, flags, rc):
 def toggle_sound(client, userdata, msg):
     slots = parse_slots(msg)
     session_id = json.loads(msg.payload.decode("utf-8"))['sessionId']
-    if slots['state'] == "on":
+    if slots['toggle_state'] == "on":
         mqtt_client.publish('hermes/feedback/sound/toggleOn', json.dumps({"siteId": "default"}))
         text = "Der Signalton wurde aktiviert."
     else:
