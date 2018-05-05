@@ -18,7 +18,7 @@ def toggle_sound(client, userdata, msg):
         text = "Der Signalton wurde aktiviert."
     else:
         mqtt_client.publish('hermes/feedback/sound/toggleOff', json.dumps({"siteId": "default"}))
-        "Der Signalton wurde deaktiviert."
+        text = "Der Signalton wurde deaktiviert."
     mqtt_client.publish('hermes/dialogueManager/endSession',
                         json.dumps({'text': text, "sessionId": session_id}))
 
