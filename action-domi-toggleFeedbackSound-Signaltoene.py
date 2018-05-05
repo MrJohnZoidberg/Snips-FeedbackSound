@@ -10,7 +10,7 @@ mqtt_client = mqtt.Client()
 def on_connect(client, userdata, flags, rc):
     client.subscribe("hermes/intent/domi:toggleFeedbackSound")
 
-def switchHotword(client, userdata, msg):
+def toggle_sound(client, userdata, msg):
     slots = parse_slots(msg)
     session_id = json.loads(msg.payload.decode("utf-8"))['sessionId']
     if slots['state'] == "on":
@@ -29,6 +29,6 @@ def parse_slots(msg):
 
 if __name__ == "__main__":
     mqtt_client.on_connect = on_connect
-    client.message_callback_add("hermes/intent/domi:toggleFeedbackSound", tts)
+    client.message_callback_add("hermes/intent/domi:toggleFeedbackSound", toggle_sound)
     mqtt_client.connect("localhost", 1883)
     mqtt_client.loop_forever()
