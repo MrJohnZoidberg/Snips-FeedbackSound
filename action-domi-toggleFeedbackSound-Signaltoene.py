@@ -15,10 +15,10 @@ def toggle_sound(client, userdata, msg):
     session_id = json.loads(msg.payload.decode("utf-8"))['sessionId']
     if slots['toggle_state'] == "on":
         mqtt_client.publish('hermes/feedback/sound/toggleOn', json.dumps({"siteId": "default"}))
-        text = "Der Signalton wurde aktiviert."
+        text = "Der Signalton wurde angeschaltet."
     else:
         mqtt_client.publish('hermes/feedback/sound/toggleOff', json.dumps({"siteId": "default"}))
-        text = "Der Signalton wurde deaktiviert."
+        text = "Der Signalton wurde ausgeschaltet."
     mqtt_client.publish('hermes/dialogueManager/endSession',
                         json.dumps({'text': text, "sessionId": session_id}))
 
