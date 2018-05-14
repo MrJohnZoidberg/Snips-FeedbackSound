@@ -19,7 +19,7 @@ def on_message(client, userdata, msg):
         if slots['toggle_state'] == "on":
             mqtt_client.publish('hermes/feedback/sound/toggleOn', json.dumps({"siteId": "default"}))
             text = "Der Signalton wurde angeschaltet."
-        elif if slots['toggle_state'] == "off":
+        elif slots['toggle_state'] == "off":
             mqtt_client.publish('hermes/feedback/sound/toggleOff', json.dumps({"siteId": "default"}))
             text = "Der Signalton wurde ausgeschaltet."
         mqtt_client.publish('hermes/dialogueManager/endSession',
