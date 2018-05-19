@@ -8,7 +8,7 @@ import json
 mqtt_client = mqtt.Client()
 
 def on_connect(client, userdata, flags, rc):
-    client.subscribe("hermes/intent/domi:toggleFeedbackSound")
+    client.subscribe("hermes/intent/#")
 
 def on_message(client, userdata, msg):
     data = json.loads(msg.payload.decode())
