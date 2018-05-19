@@ -11,7 +11,7 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe("hermes/intent/#")
 
 def on_message(client, userdata, msg):
-    data = json.loads(msg.payload.decode())
+    data = json.loads(msg.payload.decode('utf8'))
     slots = parse_slots(data)
     session_id = data['sessionId']
     user,intentname = data['intent']['intentName'].split(':')
