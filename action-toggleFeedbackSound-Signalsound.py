@@ -13,6 +13,7 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     data = json.loads(msg.payload.decode('utf8'))
     # user,intentname = data['intent']['intentName'].split(':')
+    intentname = data['intent']['intentName']
     if intentname == "domi:toggleFeedbackSound":
         slots = parse_slots(data)
         if slots['toggle_state'] == "on":
