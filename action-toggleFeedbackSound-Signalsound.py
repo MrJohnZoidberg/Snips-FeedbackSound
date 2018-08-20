@@ -16,11 +16,12 @@ def on_message(client, userdata, msg):
     intentname = data['intent']['intentName']
     if intentname == "domi:toggleFeedbackSound":
         slots = parse_slots(data)
+        text = ""
         if slots['toggle_state'] == "on":
-            mqtt_client.publish('hermes/feedback/sound/toggleOn', json.dumps({"siteId": "default"}))
+            mqtt_client.publish('hermes/feedback/sound/toggleOn', json.dumps({"siteId": data['siteId']}))
             text = "Der Signalton wurde angeschaltet."
         elif slots['toggle_state'] == "off":
-            mqtt_client.publish('hermes/feedback/sound/toggleOff', json.dumps({"siteId": "default"}))
+            mqtt_client.publish('hermes/feedback/sound/toggleOff', json.dumps({"siteId": data['siteId']}))
             text = "Der Signalton wurde ausgeschaltet."
         session_id = data['sessionId']
         mqtt_client.publish('hermes/dialogueManager/endSession',
