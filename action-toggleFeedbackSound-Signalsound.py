@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import paho.mqtt.client as mqtt
@@ -7,12 +7,13 @@ import json
 # MQTT client to connect to the bus
 mqtt_client = mqtt.Client()
 
+
 def on_connect(client, userdata, flags, rc):
     client.subscribe("hermes/intent/#")
 
+
 def on_message(client, userdata, msg):
     data = json.loads(msg.payload.decode('utf8'))
-    # user,intentname = data['intent']['intentName'].split(':')
     intentname = data['intent']['intentName']
     if intentname == "domi:toggleFeedbackSound":
         slots = parse_slots(data)
@@ -24,12 +25,13 @@ def on_message(client, userdata, msg):
             mqtt_client.publish('hermes/feedback/sound/toggleOff', json.dumps({"siteId": data['siteId']}))
             text = "Der Signalton wurde ausgeschaltet."
         session_id = data['sessionId']
-        mqtt_client.publish('hermes/dialogueManager/endSession',
-                            json.dumps({'text': text, "sessionId": session_id}))
+        mqtt_client.publish('hermes/dialogueManager/endSession', json.dumps({'text': text, "sessionId": session_id}))
+
 
 def parse_slots(data):
     # We extract the slots as a dict
-    return {slot['slotName']: slot['value']['value'] for slot in data['slots']}  # Slotvalue
+    return {slot['slotName']: slot['value']['value'] for slot in data['slots']}
+
 
 if __name__ == "__main__":
     mqtt_client.on_connect = on_connect
