@@ -1,6 +1,6 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
 
-PYTHON=`which python3`
+PYTHON=$(command -v python3)
 VENV=venv
 
 if [ -f "$PYTHON" ]
@@ -21,6 +21,7 @@ then
     fi
 
     # Activate the virtual environment and install requirements.
+    # shellcheck source=/dev/null
     . $VENV/bin/activate
     pip3 install -r requirements.txt
 
